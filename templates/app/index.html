@@ -1,0 +1,117 @@
+{% extends "base/__base.html" %} 
+{% load static %}
+
+{% block title %} Home {% endblock %} 
+
+{% block extra_css %}
+
+{% endblock %}
+
+{% block content %} 
+<div class="row">
+<div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title">Total Balance </h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="ps-3">
+                      <h6>₹ {{total}}</h6>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+</div>
+<div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title">Credit</h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="ps-3">
+                      <h6>₹ {{total_credit}}</h6>
+                    </div>
+                  </div>
+                </div>
+
+         </div>
+
+</div>
+
+<div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title">Debit</h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="ps-3">
+                      <h6>₹ {{total_debit}}</h6>
+                    </div>
+                  </div>
+                </div>
+
+         </div>
+
+</div>
+
+</div>
+
+<div class="row">
+<div class="col-lg-12">
+
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-end m-2">
+            <a class="btn btn-primary" href="{% url 'app:add_expense' %}">Add Income/Expense </a>
+        </div>
+        <h5 class="card-title">Expense Tracker</h5>
+        <!-- Bordered Table -->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+               {% for income in all_income %}
+                  <tr>
+                     <th scope="row">{{ forloop.counter }}</th>
+                     <td>{{ income.date }}</td>
+                     <td>{{ income.description }}</td>
+                     <td>{{ income.category }}</td>
+                     <td>{{ income.amount }}</td>
+                     <td>{{ income.get_type_display }}</td>
+                     <td>
+                           <a href="{% url 'app:edit_expense' income.id %}" class="text-primary"><i class="fas fa-edit"></i></a>
+                           <a href="{% url 'app:delete_expense' income.id %}" class="text-danger"><i class="fas fa-trash-alt"></i></a>
+                     </td>
+                  </tr>
+               {% endfor %}
+
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+        <!-- End Bordered Table -->
+    </div>
+</div>
+
+
+        </div>
+</div>
+
+
+{% endblock %}
+
+{% block extra_js %}  
+ 
+{% endblock %}
